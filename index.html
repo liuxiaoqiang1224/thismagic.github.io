@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    *{
+        margin: 0;
+        padding:0;
+    }
+    ul{
+        list-style: none;
+    }
+    .box{
+        width: 300px;
+        height: 300px;
+        margin: 150px auto;
+        position: relative;
+        transform-style: preserve-3d;
+        transform: rotateX(-10deg) rotateY(-20deg);
+        animation: updown 2s linear 2s infinite alternate;
+    }
+    @keyframes updown{
+        0%{
+            transform: rotateX(-10deg) rotateY(-20deg)
+        }
+        100%{
+            transform: rotateX(360deg) rotateY(360deg);
+        }
+    }
+    .box>div{
+        width: 100%;
+        height: 100%;
+        opacity: 0.5;
+        position: absolute;
+        /* background-color:pink; */
+    }
+    .box .top{
+        /* background-color: hotpink; */
+        transform: translateY(-150px) rotateX(-90deg);
+    }
+    .box .down{
+        /* background-color: yellow; */
+        transform: translateY(150px) rotateX(90deg);
+    }
+    .box .left{
+        /* background-color: green; */
+        transform: translateX(-150px) rotateY(-90deg);
+    }
+    .box .right{
+        /* background-color:blue; */
+        transform: translateX(150px) rotateY(90deg);
+    }
+    .box .front{
+        /* background-color: red; */
+        transform: translateZ(150px);
+    }
+    .box .behind{
+        /* background-color: skyblue; */
+        transform: translateZ(-150px);
+    }
+    .box ul li{
+        float: left;
+        width: 100px;
+        height: 100px;
+        position: relative;
+        box-sizing: border-box;
+        border: 1px solid #fff;
+    }
+    
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="top"></div>
+        <div class="down"></div>
+        <div class="left"></div>
+        <div class="right"></div>
+        <div class="front"></div>
+        <div class="behind"></div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script>
+    var box=$(".box");
+    var divs = box.children();
+    var arrColor=["pink","yellow","red","green","skyblue","hotpink"];
+    divs.each(function(index,el){
+        var ul = $("<ul></ul>");
+        for(var i =0;i<9;i++){
+            var li = $("<li></li>");
+            li.css("backgroundColor",arrColor[index]);
+            ul.append(li);
+        }
+        $(el).append(ul);
+    });
+    // 先定义一个空的数组,加入随机数字
+    var arrPostion=[];
+    for(var i =0;i<54;i++){
+        arrPostion.push(parseInt(Math.random()*324));
+    }
+    // console.log(arrPostion);
+    // 根据定位的位置,实现归位效果!
+    $("li").each(function(index,el){
+        $(el).css({"left":arrPostion[index],"top":arrPostion[index]});
+    });
+    $("li").each(function(index,el){
+        $(el).animate({"left":0,"top":0},2000);
+    });
+    
+    </script>
+</body>
+</html>
